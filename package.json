@@ -7,7 +7,17 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "open:ios": "xed ios",
+    "open:android": "open -a 'Android Studio' android"
+  },
+  "codegenConfig": {
+    "name": "NativeLocalStorageSpec",
+    "type": "modules",
+    "jsSrcsDir": "specs",
+    "android": {
+      "javaPackageName": "com.nativelocalstorage"
+    }
   },
   "dependencies": {
     "react": "19.1.0",

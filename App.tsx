@@ -1,45 +1,66 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import React from 'react';
+import NativeLocalStorage from './specs/NativeLocalStorage';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+const App = () => {
+  const [value, setValue] = React.useState<string | null>(null);
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [editingValue, setEditingValue] = React.useState<string | null>(null);
 
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
+  React.useEffect(() => {
+    const storedValue = NativeLocalStorage?.getItem('myKey');
+    setValue(storedValue ?? '');
+  }, []);
 
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
+  function saveValue() {
+    NativeLocalStorage?.setItem(editingValue ?? '', 'myKey');
+    setValue(editingValue);
+  }
+
+  function clearAll() {
+    NativeLocalStorage?.clear();
+    setValue('');
+  }
+
+  function deleteValue() {
+    NativeLocalStorage?.removeItem('myKey');
+    setValue('');
+  }
 
   return (
     <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
+      <Text style={styles.text}>
+        Current stored value is: {value ?? 'No Value'}
+      </Text>
+      <TextInput
+        placeholder="Enter the text you want to store"
+        style={styles.textInput}
+        onChangeText={setEditingValue}
       />
+      <Button title="Save" onPress={saveValue} />
+      <Button title="Delete" onPress={deleteValue} />
+      <Button title="Clear" onPress={clearAll} />
     </View>
   );
-}
+};
+
+export default App;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container: { flex: 1, marginTop: 100 },
+  text: {
+    margin: 10,
+    fontSize: 20,
+  },
+  textInput: {
+    margin: 10,
+    height: 40,
+    borderColor: 'black',
+    borderWidth: 1,
+    paddingLeft: 5,
+    paddingRight: 5,
+    borderRadius: 5,
   },
 });
 
-export default App;
+//NativeLocalStorage/turboModuleDemo-Bridging-Header.h
