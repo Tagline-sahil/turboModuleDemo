@@ -6,6 +6,7 @@ export interface Spec extends TurboModule {
   getItem(key: string): string | null;
   removeItem(key: string): void;
   clear(): void;
+  add(a: number, b: number): number;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('NativeLocalStorage');

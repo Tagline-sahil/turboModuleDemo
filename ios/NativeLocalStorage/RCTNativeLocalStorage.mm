@@ -48,4 +48,8 @@ RCT_EXPORT_MODULE(NativeLocalStorage)
   [self.localStorage setObject:value forKey:key];
 }
 
+- (nonnull NSNumber *)add:(double)a b:(double)b {
+  return @(a + b);
+}
+
 @end
