@@ -36,6 +36,10 @@ class NativeLocalStorageModule(reactContext: ReactApplicationContext) : NativeLo
     editor.apply()
   }
 
+   override fun add(a: Double, b: Double): Double {
+    return a + b
+  }
+
   companion object {
     const val NAME = "NativeLocalStorage"
   }
