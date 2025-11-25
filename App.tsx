@@ -2,8 +2,10 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import React from 'react';
 import NativeLocalStorage from './specs/NativeLocalStorage';
 // import NativeCalculator from './specs/NativeCalculator';
+import { HybridMath } from 'nitroModule';
 
 const App = () => {
+  console.log(HybridMath.add(2, 2));
   const [value, setValue] = React.useState<string | null>(null);
   const [editingValue, setEditingValue] = React.useState<string | null>(null);
 
@@ -61,7 +63,7 @@ const App = () => {
           title="Add"
           onPress={() =>
             setResult(
-              NativeLocalStorage?.add(
+              HybridMath?.add(
                 Number(firstNumber ?? ''),
                 Number(secondNumber ?? ''),
               )?.toString() ?? '',
